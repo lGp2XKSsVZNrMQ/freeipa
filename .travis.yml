@@ -15,9 +15,9 @@ env:
           CI_RUNNER_LOGS_DIR="/tmp/test-runner-logs"
           CI_RUNNER_LOG_ARCHIVE="freeipa-ci-pr-${TRAVIS_PULL_REQUEST}-job-${TRAVIS_JOB_NUMBER}.tar.gz"
     matrix:
-        - TASK_TO_RUN="lint"
-        - TASK_TO_RUN="run-tests"
-          TESTS_TO_RUN="test_xmlrpc/test_[a-k]*.py"
+#        - TASK_TO_RUN="lint"
+#        - TASK_TO_RUN="run-tests"
+#          TESTS_TO_RUN="test_xmlrpc/test_[a-k]*.py"
         - TASK_TO_RUN="run-tests"
           TESTS_TO_RUN="test_cmdline
             test_install
@@ -36,6 +36,8 @@ install:
 script:
     - mkdir -p $CI_RUNNER_LOGS_DIR
     - travis_wait 50 ./.travis_run_task.sh
+notifications:
+    on_failure: never
 after_failure:
     - echo "Test runner output:"; tail -n $CI_BACKLOG_SIZE $CI_RESULTS_LOG
     - echo "PEP-8 errors:"; cat $PEP8_ERROR_LOG

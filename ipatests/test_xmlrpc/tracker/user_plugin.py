@@ -241,6 +241,8 @@ class UserTracker(KerberosAliasMixin, Tracker):
         for key, value in expected_updates.items():
             if value is None or value is '' or value is u'':
                 del self.attrs[key]
+            elif key == 'password_expiration':
+                result = value
             else:
                 self.attrs[key] = value
 
@@ -345,6 +347,9 @@ class UserTracker(KerberosAliasMixin, Tracker):
             expected[u'nsaccountlock'] = True
         elif expected[u'nsaccountlock'] == [u'false']:
             expected[u'nsaccountlock'] = False
+
+        if expected == [u'now'] and type(result) is datetime.datetime:
+            expected = result
 
         assert_deepequal(dict(
             value=self.uid,

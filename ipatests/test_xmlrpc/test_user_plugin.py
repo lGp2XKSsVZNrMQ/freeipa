@@ -439,6 +439,21 @@ class TestUpdate(XMLRPC_test):
         )
         user.delete()
 
+    def test_set_immediate_password_expiration(self, user):
+        """ Set immediate password expiration for user """
+        user.ensure_exists()
+        user.update(
+            dict(krbpasswordexpiration=u'now')
+        )
+
+    def test_set_delayed_password_expiration(self, user):
+        """ Set delayed expiration for user """
+        user.ensure_exists()
+        user.update(
+            dict(krbpasswordexpiration=principal_expiration_string),
+            dict(krbpasswordexpiration=[principal_expiration_date])
+        )
+
     def test_rename_to_invalid_login(self, user):
         """ Try to change user login to an invalid value """
         user.ensure_exists()
