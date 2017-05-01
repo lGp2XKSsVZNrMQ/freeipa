@@ -246,10 +246,10 @@ class UserTracker(KerberosAliasMixin, Tracker):
             else:
                 self.attrs[key] = value
 
-#        self.check_update(
-#            result,
-#            extra_keys=set(updates.keys()) | set(expected_updates.keys())
-#        )
+        self.check_update(
+            result,
+            extra_keys=set(updates.keys()) | set(expected_updates.keys())
+        )
 
         if 'rename' in updates:
             self.uid = self.attrs['uid'][0]
