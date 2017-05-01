@@ -348,7 +348,7 @@ class UserTracker(KerberosAliasMixin, Tracker):
         elif expected[u'nsaccountlock'] == [u'false']:
             expected[u'nsaccountlock'] = False
 
-        if expected == [u'now'] and type(result) is datetime.datetime:
+        if expected == [u'now']:
             expected = result
 
         assert_deepequal(dict(
