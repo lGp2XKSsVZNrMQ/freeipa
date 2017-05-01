@@ -242,14 +242,14 @@ class UserTracker(KerberosAliasMixin, Tracker):
             if value is None or value is '' or value is u'':
                 del self.attrs[key]
             elif key == 'password_expiration':
-                result = value
+                self.result = value
             else:
                 self.attrs[key] = value
 
-        self.check_update(
-            result,
-            extra_keys=set(updates.keys()) | set(expected_updates.keys())
-        )
+#        self.check_update(
+#            result,
+#            extra_keys=set(updates.keys()) | set(expected_updates.keys())
+#        )
 
         if 'rename' in updates:
             self.uid = self.attrs['uid'][0]
